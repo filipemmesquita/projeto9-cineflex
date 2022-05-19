@@ -12,14 +12,13 @@ export default function MovieSelect(){
             setMovies(response.data)
         });
     }, []);
-    console.log(movies)
     return(
-    <Container>
+    <>
         <h1>Selecione o filme</h1>
-        <div>
+        <MovieList>
         {movies.map(movie=><Movie movie={movie} />)}
-        </div>
-    </Container>
+        </MovieList>
+    </>
     );
 }
 function Movie(props){
@@ -31,21 +30,7 @@ function Movie(props){
         </MovieWrapper>
     );
 }
-const Container = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-text-align: center;
-padding-top:30px;
-div{
-    flex-wrap: wrap;
-    display: flex;
-    margin:15px 6px;
-    box-sizing: border-box;
-    max-width: 100%;
-    justify-content: center;
-}
-`;
+
 
 const MovieWrapper= styled.div`
 padding: 8px;
@@ -58,4 +43,12 @@ img{
     width: 129px;
     height: 193px;
 }
+`;
+const MovieList=styled.div`
+    flex-wrap: wrap;
+    display: flex;
+    margin:15px 6px;
+    box-sizing: border-box;
+    max-width: 100%;
+    justify-content: center;
 `;
