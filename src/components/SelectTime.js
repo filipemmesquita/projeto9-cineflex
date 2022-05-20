@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-export default function SelectTime(props){
+export default function SelectTime(){
     const params = useParams();
     const [movieInfo, setMovieInfo]=useState(null);
     useEffect(() => {
