@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Footer from './Footer';
 
 
 export default function SelectTime(){
@@ -25,6 +26,14 @@ export default function SelectTime(){
         <DayList>
         {movieInfo.days.map(day=><Day day={day} />)}
         </DayList>
+        <Footer>
+            <div>
+                <img src={movieInfo.posterURL}/>
+            </div>
+            <div>
+            <p>{movieInfo.title}</p>
+            </div>
+        </Footer>
     </>
     )
 
@@ -57,6 +66,7 @@ h2{
     font-style: normal;
     font-weight: 400;
 }
+margin-bottom: 117px;
 `;
 const TimeList=styled.div`
 margin:22px 0;

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import {Link, useNavigate} from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 
 import axios from 'axios';
@@ -52,7 +52,7 @@ export default function SelectSeatForm(props){
 }
 const FormWrapper = styled.div`
 width: 320px;
-margin: 30px auto 0px;
+margin: 30px auto 120px;
 form{
     display: flex;
     flex-direction:column;

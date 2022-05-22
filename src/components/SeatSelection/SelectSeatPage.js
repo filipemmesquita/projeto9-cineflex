@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import SelectSeat from './SelectSeat';
 import SelectSeatForm from './SelectSeatForm';
+import Footer from '../Footer';
 
 
 export default function SelectSeatPage(props){
@@ -61,6 +62,15 @@ export default function SelectSeatPage(props){
             movie={sessionInfo.movie.title} 
             date={sessionInfo.day.date} 
             time={sessionInfo.name} />
+            <Footer>
+                <div>
+                    <img src={sessionInfo.movie.posterURL}/>
+                </div>
+                <div>
+                <p>{sessionInfo.movie.title}</p>
+                <p>{sessionInfo.day.weekday} - {sessionInfo.name}</p>
+                </div>        
+            </Footer>
         </>
     );
 

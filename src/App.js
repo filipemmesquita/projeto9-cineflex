@@ -4,7 +4,6 @@ import MovieSelect from './components/MovieSelect';
 import SelectTime from './components/SelectTime';
 import SelectSeatPage from './components/SeatSelection/SelectSeatPage';
 import styled from 'styled-components';
-import { useState } from 'react';
 import SuccessPage from './components/SuccessPage'
 
 export default function App(){
