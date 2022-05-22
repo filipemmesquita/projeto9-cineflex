@@ -1,39 +1,12 @@
 import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 
-export default function SelectSeat(){
-    const params = useParams();
-    const [selectedSeats, setSelectedSeats] = useState([]);
-    const [sessionInfo, setSessionInfo]=useState(null);
-    useEffect(() => {
-        const requisition=axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${params.idSessao}/seats`)
-        requisition.then(response=>{
 
-            setSessionInfo(response.data)
-        });
-    }, []);
-
-    function addSeat(id){
-        const newSelectedSeats=[...selectedSeats, id];
-        setSelectedSeats(newSelectedSeats);
-    };
-    function removeSeat(id){
-        const newSelectedSeats=[...selectedSeats];
-        setSelectedSeats( newSelectedSeats.filter(currentSeat => currentSeat!==id));
-    };
-
-    if(sessionInfo===null){
-        return (<h1>carregando</h1>);
-    };
+export default function SelectSeat(props){
     return(
-        <>
-            <h1>Selecione o(s) assento(s)</h1>
             <SeatSelectionWrapper>
-                {sessionInfo.seats.map(seat=><Seat isAvailable={seat.isAvailable} id={seat.id} name={seat.name} addSeat={addSeat} removeSeat={removeSeat} />)}
+                {props.seats.map(seat=><Seat isAvailable={seat.isAvailable} id={seat.id} name={seat.name} addSeat={props.addSeat} removeSeat={props.removeSeat} />)}
             </SeatSelectionWrapper>
-        </>
     );
 
 }
@@ -45,11 +18,11 @@ function Seat(props){
     function seatSelection(){
         if(isSelected){
             setIsSelected(false)
-            props.removeSeat(props.id);
+            props.removeSeat(props.id, props.name);
         };
         if(!isSelected){
             setIsSelected(true)
-            props.addSeat(props.id);
+            props.addSeat(props.id, props.name);
 
         };
     }

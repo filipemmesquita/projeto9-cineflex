@@ -2,24 +2,27 @@ import Header from './components/Header'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MovieSelect from './components/MovieSelect';
 import SelectTime from './components/SelectTime';
-import SelectSeat from './components/SelectSeat';
+import SelectSeatPage from './components/SeatSelection/SelectSeatPage';
 import styled from 'styled-components';
+import { useState } from 'react';
+import SuccessPage from './components/SuccessPage'
 
 export default function App(){
 
     return(
-        <>
+        <BrowserRouter>
             <Header />
             <Container>
-                <BrowserRouter>
+                
                     <Routes>
                         <Route path="/" element={<MovieSelect />} />
                         <Route path="/sessoes/:idFilme" element={<SelectTime />} />
-                        <Route path="/assentos/:idSessao" element={<SelectSeat />} />
+                        <Route path="/assentos/:idSessao" element={<SelectSeatPage  />} />
+                        <Route path="/sucesso/" element={<SuccessPage />} />
                     </Routes>
-                </BrowserRouter>
+                
             </Container>
-        </>
+        </BrowserRouter>
     );
 
 }
