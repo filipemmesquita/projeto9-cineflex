@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
 import axios from 'axios';
-
 
 export default function SelectSeatForm(props){
     const [name, setName]=useState("");

@@ -5,25 +5,23 @@ import SelectTime from './components/SelectTime';
 import SelectSeatPage from './components/SeatSelection/SelectSeatPage';
 import styled from 'styled-components';
 import SuccessPage from './components/SuccessPage'
+import { useLocation } from 'react-router-dom';
 
 export default function App(){
-
+console.log(useLocation.pathname);
     return(
         <BrowserRouter>
             <Header />
-            <Container>
-                
+            <Container>               
                     <Routes>
                         <Route path="/" element={<MovieSelect />} />
                         <Route path="/sessoes/:idFilme" element={<SelectTime />} />
                         <Route path="/assentos/:idSessao" element={<SelectSeatPage  />} />
                         <Route path="/sucesso/" element={<SuccessPage />} />
                     </Routes>
-                
             </Container>
         </BrowserRouter>
     );
-
 }
 const Container = styled.div`
 display: flex;
