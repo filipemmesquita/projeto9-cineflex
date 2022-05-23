@@ -41,16 +41,26 @@ function Seat(props){
     }
     function seatSelection(){
         if(isSelected){
-            setIsSelected(false)
             const index=props.selectedSeats.findIndex(seat=> seat===props.id)
-            if(index!==-1){
+            console.log(props.selectedSeats)
+            console.log(props.id)
+            console.log(index);
+            if(index!=-1){
                 if(window.confirm("Este assento tem valores preenchidos! tem certeza que quer removê-lo?")===true){
                     removeNamesByIndex(index);
                     removeCpfsByIndex(index);
                     props.removeSeat(props.id, props.name);
+                    setIsSelected(false)
+                    console.log("removido1")
+                }
+                else{
+                    console.log("não removido")
                 }               
-            }
+            }else if(index==-1){
             props.removeSeat(props.id, props.name);
+            setIsSelected(false)
+            console.log("removido2")
+            }
         };
         if(!isSelected){
             setIsSelected(true)
