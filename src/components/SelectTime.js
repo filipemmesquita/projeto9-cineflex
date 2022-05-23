@@ -59,14 +59,14 @@ function Showtime(props){
 const DayList=styled.div`
 box-sizing: border-box;
 text-align: left;
-width:100%;
+width:320px;
 padding:0 30px 0;
 h2{
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
 }
-margin-bottom: 117px;
+margin:0 auto 117px;
 `;
 const TimeList=styled.div`
 margin:22px 0;
