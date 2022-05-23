@@ -10,6 +10,11 @@ import Footer from '../Footer';
 export default function SelectSeatPage(props){
     const params = useParams();
     const [sessionInfo, setSessionInfo]=useState(null);
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [selectedSeatsNames, setSelectedSeatsNames]=useState([]);
+    const [selectedSeatsBuyer, setSelectedSeatsBuyer]=useState([]);
+    const [selectedSeatsBuyerCPF, setSelectedSeatsBuyerCPF]=useState([]);
+
     useEffect(() => {
         const requisition=axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${params.idSessao}/seats`)
         requisition.then(response=>{
@@ -17,9 +22,6 @@ export default function SelectSeatPage(props){
             setSessionInfo(response.data)
         });
     }, []);
-
-    const [selectedSeats, setSelectedSeats] = useState([]);
-    const [selectedSeatsNames, setSelectedSeatsNames]=useState([]);
     function addSeat(id,name){
         const newSelectedSeats=[...selectedSeats, id];
         setSelectedSeats(newSelectedSeats);
@@ -40,7 +42,16 @@ export default function SelectSeatPage(props){
     return(
         <>
             <h1>Selecione o(s) assento(s)</h1>
-            <SelectSeat seats={sessionInfo.seats} addSeat={addSeat} removeSeat={removeSeat} />
+            <SelectSeat 
+                seats={sessionInfo.seats} 
+                addSeat={addSeat} 
+                removeSeat={removeSeat} 
+                selectedSeats={selectedSeats}
+                seatBuyers={selectedSeatsBuyer}
+                seatCpfs={selectedSeatsBuyerCPF}
+                setSeatBuyers={setSelectedSeatsBuyer}
+                setSeatCpfs={setSelectedSeatsBuyerCPF}
+            />
             <LegendWrapper>
                 <div>
                     <Legend background="#8DD7CF" border="#1AAE9E"></Legend>
@@ -56,12 +67,17 @@ export default function SelectSeatPage(props){
                 </div>
             </LegendWrapper>
             <SelectSeatForm 
-            idSessao={params.idSessao} 
-            selectedSeats={selectedSeats}
-            selectedSeatsNames={selectedSeatsNames} 
-            movie={sessionInfo.movie.title} 
-            date={sessionInfo.day.date} 
-            time={sessionInfo.name} />
+                idSessao={params.idSessao} 
+                selectedSeats={selectedSeats}
+                selectedSeatsNames={selectedSeatsNames} 
+                movie={sessionInfo.movie.title} 
+                date={sessionInfo.day.date} 
+                time={sessionInfo.name}
+                buyerNames={selectedSeatsBuyer} 
+                buyerCpfs={selectedSeatsBuyerCPF} 
+                setNames={setSelectedSeatsBuyer} 
+                setCpfs={setSelectedSeatsBuyerCPF} 
+            />
             <Footer>
                 <div>
                     <img src={sessionInfo.movie.posterURL}/>

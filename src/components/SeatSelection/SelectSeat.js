@@ -5,7 +5,19 @@ import { useState } from 'react';
 export default function SelectSeat(props){
     return(
             <SeatSelectionWrapper>
-                {props.seats.map(seat=><Seat key={seat.id} isAvailable={seat.isAvailable} id={seat.id} name={seat.name} addSeat={props.addSeat} removeSeat={props.removeSeat} />)}
+                {props.seats.map(seat=><Seat 
+                    key={seat.id} 
+                    isAvailable={seat.isAvailable} 
+                    id={seat.id} 
+                    name={seat.name} 
+                    addSeat={props.addSeat} 
+                    removeSeat={props.removeSeat} 
+                    selectedSeats={props.selectedSeats}
+                    seatBuyers={props.seatBuyers}
+                    seatCpfs={props.seatCpfs}
+                    setSeatBuyers={props.setSeatBuyers}
+                    setSeatCpfs={props.setSeatCpfs}
+                />)}
             </SeatSelectionWrapper>
     );
 
@@ -15,15 +27,34 @@ function Seat(props){
     function notAvailable(){
         alert("Este assento não está disponível")
     }
+    function removeNamesByIndex(index){
+        let newNames=[...props.seatBuyers];
+        newNames.splice(index,1);
+        props.setSeatBuyers(newNames);
+
+    }
+    function removeCpfsByIndex(index){
+        let newCpfs=[...props.seatCpfs];
+        newCpfs.splice(index,1);
+        props.setSeatCpfs(newCpfs);
+
+    }
     function seatSelection(){
         if(isSelected){
             setIsSelected(false)
+            const index=props.selectedSeats.findIndex(seat=> seat===props.id)
+            if(index!==-1){
+                if(window.confirm("Este assento tem valores preenchidos! tem certeza que quer removê-lo?")===true){
+                    removeNamesByIndex(index);
+                    removeCpfsByIndex(index);
+                    props.removeSeat(props.id, props.name);
+                }               
+            }
             props.removeSeat(props.id, props.name);
         };
         if(!isSelected){
             setIsSelected(true)
             props.addSeat(props.id, props.name);
-
         };
     }
     return(

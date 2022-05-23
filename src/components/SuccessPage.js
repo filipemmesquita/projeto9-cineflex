@@ -11,19 +11,13 @@ export default function SuccessPage(){
             <Content>
                 <div>
                     <Title2>Filme e sessão</Title2>
-                        <p>{location.state.movie}</p>
-                        <p>{location.state.date} {location.state.time}</p>
+                        <h3>{location.state.movie}</h3>
+                        <h3>{location.state.date} {location.state.time}</h3>
                 </div>
                 <div>
                     <Title2>Ingressos</Title2>
-                        {location.state.seats.map(seat => <p key={seat}>Assento {seat}</p>)}
+                        {location.state.seats.map((seat,index) => <p key={seat}>Assento {seat} <br /> Comprador {location.state.names[index]} <br /> CPF: {location.state.cpfs[index]}</p>)}
                 </div>
-                <div>
-                    <Title2>Comprador</Title2>
-                        <p>Nome:{location.state.name}</p>
-                        <p>CPF:{location.state.cpf}</p>
-                </div>
-
                 <Link to="/"><ReturnHome>Voltar para Home</ReturnHome></Link>
             </Content>
 
@@ -49,18 +43,24 @@ align-items: flex-start;
 flex-direction: column;
 margin:0 auto;
 div{
-    margin-bottom:50px ;
+    margin-bottom:20px ;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
     p{
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 22px;
-        line-height: 26px;
+        
+        text-align: left;
+        margin-bottom: 20px;
     }
+}
+a{
+    margin:0 auto;
 }
 `;
 const ReturnHome=styled.button`

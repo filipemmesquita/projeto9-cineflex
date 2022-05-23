@@ -1,36 +1,39 @@
-import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
 export default function SelectSeatForm(props){
-    const [name, setName]=useState("");
-    const [cpf, setCpf]=useState("");
+
+
     const navigate = useNavigate();
 
     function submitSeats(event){
         event.preventDefault();
         if(props.selectedSeats.length!==0)
         {
-            const submitObject={
-                ids:props.selectedSeats,
-                name:name,
-                cpf:cpf
-            }
-                const requisition=axios.post(`https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`, submitObject)
-                requisition.then(response=>{
+ 
+            const compradores=[]
+            props.selectedSeats.map((seat,index)=>compradores.push({
+                idAssento:seat, 
+                nome:props.buyerNames[index],
+                cpf:props.buyerCpfs[index]}))
+
+            const submitObject={ids:props.selectedSeats, compradores:compradores}
+
+            const requisition=axios.post(`https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`, submitObject)
+            requisition.then(response=>{
                     const successInfoObject = {
                         movie: props.movie,
                         date: props.date,
                         time: props.time,
                         seats:props.selectedSeatsNames,
-                        name:name,
-                        cpf:cpf,
+                        names:props.buyerNames,
+                        cpfs:props.buyerCpfs,
                         idSessao:props.idSessao
                         };
                     navigate('/sucesso',{state:successInfoObject});
                 });
-                requisition.catch(error=>{console.log(error.response.status);})
+            requisition.catch(error=>{console.log(error.response.status);})
         }
         else{
             alert("Selecione assentos!")
@@ -39,15 +42,45 @@ export default function SelectSeatForm(props){
     return(
         <FormWrapper>
         <form onSubmit={submitSeats}>
-            <label htmlFor="name">Nome do comprador:</label>
-            <input type="text" id="name" value={name} placeholder="Digite seu nome..." onChange={e => setName(e.target.value)} required></input>
-            <label htmlFor="cpf">CPF do comprador:</label>
-            <input type="text" id="cpf" value={cpf} placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} required></input>
+            {props.selectedSeats.map((seat, index) => <SubForm 
+                index={index} 
+                key={seat} 
+                seat={seat} 
+                seatName={props.selectedSeatsNames[index]} 
+                buyerNames={props.buyerNames} 
+                buyerCpfs={props.buyerCpfs} 
+                setNames={props.setNames} 
+                setCpfs={props.setCpfs} 
+            />)}
             <button type="submit">Reservar Assento(s)</button>
         </form>
         </FormWrapper>
     );
 }
+function SubForm(props){
+    function setNamesByIndex(value, index){
+        let newNames=[...props.buyerNames];
+        newNames[index]=value;
+        props.setNames(newNames);
+
+    }
+    function setCpfsByIndex(value, index){
+        let newCpfs=[...props.buyerCpfs];
+        newCpfs[index]=value;
+        props.setCpfs(newCpfs);
+
+    }
+    return(
+        <>
+            <h2>Assento {props.seatName}</h2>
+            <label htmlFor={"name"+props.seat}>Nome do comprador:</label>
+            <input type="text" id={"name"+props.seat} value={props.buyerNames[props.index]} placeholder="Digite seu nome..." onChange={e => setNamesByIndex(e.target.value, props.index)} required></input>
+            <label htmlFor={"cpf"+props.seat}>CPF do comprador:</label>
+            <input type="text" id={"cpf"+props.seat} value={props.buyerCpfs[props.index]} placeholder="Digite seu CPF..." onChange={e => setCpfsByIndex(e.target.value, props.index)} required></input>
+        </>
+    );
+}
+
 const FormWrapper = styled.div`
 width: 320px;
 margin: 30px auto 120px;
@@ -89,6 +122,7 @@ form{
             background: #E8833A;
             border-radius: 3px;
             border-style: none;
+            margin-bottom:20px;
         };
 }
 `;
