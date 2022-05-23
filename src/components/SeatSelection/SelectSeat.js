@@ -5,7 +5,7 @@ import { useState } from 'react';
 export default function SelectSeat(props){
     return(
             <SeatSelectionWrapper>
-                {props.seats.map(seat=><Seat isAvailable={seat.isAvailable} id={seat.id} name={seat.name} addSeat={props.addSeat} removeSeat={props.removeSeat} />)}
+                {props.seats.map(seat=><Seat key={seat.id} isAvailable={seat.isAvailable} id={seat.id} name={seat.name} addSeat={props.addSeat} removeSeat={props.removeSeat} />)}
             </SeatSelectionWrapper>
     );
 

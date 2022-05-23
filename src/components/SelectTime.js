@@ -24,7 +24,7 @@ export default function SelectTime(){
     <>
         <h1>Selecione o horário</h1>
         <DayList>
-        {movieInfo.days.map(day=><Day day={day} />)}
+        {movieInfo.days.map(day=><Day day={day} key={day.id} />)}
         </DayList>
         <Footer>
             <div>
@@ -43,7 +43,7 @@ function Day(props){
         <>
             <h2>{props.day.weekday} - {props.day.date}</h2>
             <TimeList>
-            {props.day.showtimes.map(time=><Showtime time={time} />)}
+            {props.day.showtimes.map(time=><Showtime time={time} key={time.id} />)}
             </TimeList>
         </>
     );

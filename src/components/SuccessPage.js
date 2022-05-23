@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export default function SuccessPage(){
     const location=useLocation();
-    console.log(location.state);
     
     return(
         <>
@@ -17,7 +16,7 @@ export default function SuccessPage(){
                 </div>
                 <div>
                     <Title2>Ingressos</Title2>
-                        {location.state.seats.map(seat => <p>Assento {seat}</p>)}
+                        {location.state.seats.map(seat => <p key={seat}>Assento {seat}</p>)}
                 </div>
                 <div>
                     <Title2>Comprador</Title2>

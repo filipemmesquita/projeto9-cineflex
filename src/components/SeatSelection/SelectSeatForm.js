@@ -39,9 +39,9 @@ export default function SelectSeatForm(props){
     return(
         <FormWrapper>
         <form onSubmit={submitSeats}>
-            <label for="name">Nome do comprador:</label>
+            <label htmlFor="name">Nome do comprador:</label>
             <input type="text" id="name" value={name} placeholder="Digite seu nome..." onChange={e => setName(e.target.value)} required></input>
-            <label for="cpf">CPF do comprador:</label>
+            <label htmlFor="cpf">CPF do comprador:</label>
             <input type="text" id="cpf" value={cpf} placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} required></input>
             <button type="submit">Reservar Assento(s)</button>
         </form>

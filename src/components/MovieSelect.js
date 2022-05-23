@@ -16,7 +16,7 @@ export default function MovieSelect(){
     <>
         <h1>Selecione o filme</h1>
         <MovieList>
-        {movies.map(movie=><Movie movie={movie} />)}
+        {movies.map(movie=><Movie movie={movie} key={movie.id} />)}
         </MovieList>
     </>
     );

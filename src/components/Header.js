@@ -6,7 +6,7 @@ export default function Header(){
     const currentLocation =useLocation().pathname;
     return(
         <HeaderContainer>
-            {currentLocation != "/" ? <button onClick={() => navigate(-1)}>Voltar</button> : ""}
+            {currentLocation !== "/" ? <button onClick={() => navigate(-1)}>Voltar</button> : ""}
             <h1>CINEFLEX</h1>
         </HeaderContainer>
     );
